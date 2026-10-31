@@ -22,9 +22,9 @@ export type Project = { title: string; description: string; tags: string[]; gith
 
 export const projects: Project[] = [
   {
-    title: "Support Ticket Assistant (in progress)",
-    description: "Building an NLP assistant for support ticket classification and routing. Combines confidence calibration, RAG-based reply drafts and a LangGraph workflow with human approval before sending.",
-    tags: ["NLP", "RAG", "LangGraph", "In progress"],
+    title: "Support Ticket Assistant",
+    description: "Built an NLP assistant for support ticket classification and routing. Combines confidence calibration, RAG-based reply drafts and a LangGraph workflow with human approval before sending.",
+    tags: ["NLP", "RAG", "LangGraph"],
   },
   {
     title: "Transformer from Scratch",

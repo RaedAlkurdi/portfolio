@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
       { title: "Raed Alkurdi | Portfolio" },
       { name: "description", content: "I'm Raed Alkurdi, a Complex Adaptive Systems master's student at Chalmers. See my machine learning projects, skills and education." },
       { property: "og:title", content: "Raed Alkurdi | Portfolio" },
-      { property: "og:description", content: "Machine learning projects, skills and studies — including a Transformer built from scratch, customer churn prediction and a support ticket assistant in progress." },
+      { property: "og:description", content: "Machine learning projects, skills and studies — including a Transformer built from scratch, customer churn prediction and a support ticket assistant." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
