@@ -47,6 +47,6 @@ export const projects: Project[] = [
 ];
 
 export const experience: { period: string; role: string; org: string; text?: string }[] = [
-  { period: "Aug 2026 to Jun 2028", role: "MSc, Complex Adaptive Systems", org: "Chalmers University of Technology", text: "Track: Machine Learning & Data Science" },
+  { period: "Aug 2026 to Jun 2028 (expected)", role: "MSc, Complex Adaptive Systems", org: "Chalmers University of Technology", text: "Track: Machine Learning & Data Science" },
   { period: "Aug 2023 to Jun 2026", role: "BSc, Mechanical Engineering", org: "Chalmers University of Technology" },
 ];
