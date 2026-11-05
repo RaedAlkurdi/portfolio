@@ -38,8 +38,7 @@ const principles = [
 function Heading({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="reveal">
-      <p className="section-label">{label}</p>
-      <h2 className="mt-4 text-4xl font-bold leading-tight sm:text-5xl">{children}</h2>
+      <h2 aria-label={undefined} data-section={label} className="text-4xl font-bold leading-tight sm:text-5xl">{children}</h2>
     </div>
   );
 }
@@ -96,7 +95,7 @@ function Index() {
 
         {/* About */}
         <section id="about" className="container-page py-24">
-          <Heading label="About">A bit <span className="text-gradient">about me</span></Heading>
+          <Heading label="About">A bit about me</Heading>
           <p className="reveal mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground">{profile.bio}</p>
           <p className="reveal mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground">{profile.personal}</p>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
@@ -113,7 +112,7 @@ function Index() {
         {/* Skills */}
         <section id="skills" className="py-24">
           <div className="container-page">
-            <Heading label="Skills">What I <span className="text-gradient">work with</span></Heading>
+            <Heading label="Skills">What I work with</Heading>
             <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {skills.map((s, i) => (
                 <div key={s.group} className="card-dark reveal p-6" style={{ "--d": `${i * 0.1}s` } as React.CSSProperties}>
@@ -137,7 +136,7 @@ function Index() {
 
         {/* Projects */}
         <section id="projects" className="container-page py-24">
-          <Heading label="Projects">What I've <span className="text-gradient">been building</span></Heading>
+          <Heading label="Projects">What I've been building</Heading>
           <div className="mt-8 flex flex-wrap gap-2">
             {tags.map((t) => (
               <button key={t} onClick={() => setFilter(t)} className={filter === t ? "chip chip-active" : "chip"}>{t}</button>
@@ -164,7 +163,7 @@ function Index() {
         {/* Experience */}
         <section id="experience" className="container-page py-24">
           <div className="flex flex-wrap items-end justify-between gap-6">
-            <Heading label="Education">Academic <span className="text-gradient">background</span></Heading>
+            <Heading label="Education">Academic background</Heading>
           </div>
           <ol className="mt-12 space-y-5">
             {experience.map((e) => (
@@ -184,7 +183,7 @@ function Index() {
         <section id="contact" className="container-page py-24">
           <div className="card-dark reveal grid gap-12 p-8 sm:p-12 lg:grid-cols-2">
             <div>
-              <Heading label="Contact">Let's build something <span className="text-shimmer">intelligent</span></Heading>
+              <Heading label="Contact">Let's build something intelligent</Heading>
               <a href={`mailto:${profile.email}`} className="mt-8 inline-block font-mono text-primary">{profile.email}</a>
               <div className="mt-4 flex gap-5 font-mono text-sm">
                 {profile.links.map((l) => <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="link">{l.label}</a>)}
