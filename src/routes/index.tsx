@@ -38,8 +38,7 @@ const principles = [
 function Heading({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="reveal">
-      <p className="section-label">{label}</p>
-      <h2 className="mt-4 text-4xl font-bold leading-tight sm:text-5xl">{children}</h2>
+      <h2 data-section={label} className="text-4xl font-bold leading-tight sm:text-5xl">{children}</h2>
     </div>
   );
 }
@@ -51,7 +50,7 @@ function Index() {
   const tools = skills.flatMap((s) => s.items);
 
   return (
-    <div className="min-h-screen overflow-x-hidden text-foreground">
+    <div className="min-h-screen text-foreground">
       <Effects />
       <header id="site-header" className="fixed inset-x-0 top-4 z-20 px-4 transition-transform duration-500">
         <div className="glass-gold mx-auto flex h-14 max-w-5xl items-center justify-between rounded-full pl-6 pr-2">
@@ -69,8 +68,8 @@ function Index() {
         {/* Hero */}
         <section className="container-page grid min-h-screen items-center gap-12 pt-28 pb-16 lg:grid-cols-[1.2fr_1fr]">
           <div className="fade-in">
-            <span className="glass inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-widest text-muted-foreground">
-              <span className="h-2 w-2 rounded-full bg-signal" /> Based in Gothenburg, Sweden
+            <span className="glass inline-flex items-center rounded-full px-3 py-1.5 text-sm text-muted-foreground">
+              Based in Gothenburg, Sweden
             </span>
             <h1 className="mt-6 text-6xl font-bold leading-[0.95] sm:text-7xl">Raed<br />Alkurdi</h1>
             <RotatingHeadline />
@@ -96,7 +95,7 @@ function Index() {
 
         {/* About */}
         <section id="about" className="container-page py-24">
-          <Heading label="About">A bit <span className="text-gradient">about me</span></Heading>
+          <Heading label="About">A bit about me</Heading>
           <p className="reveal mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground">{profile.bio}</p>
           <p className="reveal mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground">{profile.personal}</p>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
@@ -113,7 +112,7 @@ function Index() {
         {/* Skills */}
         <section id="skills" className="py-24">
           <div className="container-page">
-            <Heading label="Skills">What I <span className="text-gradient">work with</span></Heading>
+            <Heading label="Skills">What I work with</Heading>
             <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {skills.map((s, i) => (
                 <div key={s.group} className="card-dark reveal p-6" style={{ "--d": `${i * 0.1}s` } as React.CSSProperties}>
@@ -137,7 +136,7 @@ function Index() {
 
         {/* Projects */}
         <section id="projects" className="container-page py-24">
-          <Heading label="Projects">What I've <span className="text-gradient">been building</span></Heading>
+          <Heading label="Projects">What I've been building</Heading>
           <div className="mt-8 flex flex-wrap gap-2">
             {tags.map((t) => (
               <button key={t} onClick={() => setFilter(t)} className={filter === t ? "chip chip-active" : "chip"}>{t}</button>
@@ -153,8 +152,8 @@ function Index() {
                   {p.tags.map((t) => <span key={t} className="tag">{t}</span>)}
                 </div>
                 <div className="mt-5 flex gap-5 font-mono text-xs">
-                  {p.github && <a href={p.github} className="link">View on GitHub ↗</a>}
-                  {p.demo && <a href={p.demo} className="link">Try the demo ↗</a>}
+                  {p.github && <a href={p.github} className="link">View on GitHub</a>}
+                  {p.demo && <a href={p.demo} className="link">Try the demo</a>}
                 </div>
               </article>
             ))}
@@ -164,7 +163,7 @@ function Index() {
         {/* Experience */}
         <section id="experience" className="container-page py-24">
           <div className="flex flex-wrap items-end justify-between gap-6">
-            <Heading label="Education">Academic <span className="text-gradient">background</span></Heading>
+            <Heading label="Education">Academic background</Heading>
           </div>
           <ol className="mt-12 space-y-5">
             {experience.map((e) => (
@@ -184,10 +183,10 @@ function Index() {
         <section id="contact" className="container-page py-24">
           <div className="card-dark reveal grid gap-12 p-8 sm:p-12 lg:grid-cols-2">
             <div>
-              <Heading label="Contact">Let's build something <span className="text-shimmer">intelligent</span></Heading>
+              <Heading label="Contact">Let's build something intelligent</Heading>
               <a href={`mailto:${profile.email}`} className="mt-8 inline-block font-mono text-primary">{profile.email}</a>
               <div className="mt-4 flex gap-5 font-mono text-sm">
-                {profile.links.map((l) => <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="link">{l.label} ↗</a>)}
+                {profile.links.map((l) => <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="link">{l.label}</a>)}
               </div>
             </div>
             <ContactForm />

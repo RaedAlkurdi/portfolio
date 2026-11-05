@@ -179,7 +179,7 @@
 }
 
 @utility container-page { margin-inline: auto; width: 100%; max-width: 72rem; padding-inline: 1.5rem; }
-@utility section-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--primary); }
+@utility section-label { font-family: var(--font-body, inherit); font-size: 0.95rem; color: var(--primary); }
 @utility glass { background: oklch(0.18 0.006 285 / 70%); border: 1px solid var(--border); backdrop-filter: blur(14px); }
 @utility card-dark { background: oklch(0.17 0.006 285 / 80%); border: 1px solid var(--border); border-radius: var(--radius); transition: border-color .3s, transform .3s; &:hover { border-color: oklch(0.78 0.12 70 / 40%); } }
 @utility btn-ink {
@@ -307,3 +307,7 @@ main, footer { position: relative; z-index: 1; }
   }
 }
 @media (prefers-reduced-motion: reduce) { .hero-photo { animation: none; } }
+
+html, body { overflow-x: clip; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; transition: none; }
+h1, h2, h3 { overflow-wrap: break-word; min-width: 0; }

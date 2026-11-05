@@ -103,10 +103,10 @@ export function Effects() {
     <>
       <div className={`loader ${loaded ? "loader-done" : ""}`} aria-hidden>
         <p className="font-display text-7xl font-bold text-primary">RA.</p>
-        <p className="mt-4 font-mono text-xs uppercase tracking-[0.4em] text-muted-foreground">ML &amp; Data Science</p>
+        <p className="mt-4 text-sm text-muted-foreground">ML &amp; Data Science</p>
         <div className="absolute bottom-16 w-64">
           <div className="flex justify-between font-mono text-xs text-muted-foreground"><span>Loading</span><span className="text-primary">{pct}%</span></div>
-          <div className="mt-2 h-px bg-border"><div className="h-px bg-primary transition-all" style={{ width: `${pct}%` }} /></div>
+          <div className="mt-2 h-px bg-border"><div className="h-px origin-left bg-primary transition-transform" style={{ transform: `scaleX(${pct / 100})` }} /></div>
         </div>
       </div>
       <div ref={bar} className="progress-bar fixed inset-x-0 top-0 z-50 h-[3px] origin-left" style={{ transform: "scaleX(0)" }} />
