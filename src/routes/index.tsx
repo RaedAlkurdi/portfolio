@@ -38,7 +38,7 @@ const principles = [
 function Heading({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="reveal">
-      <h2 aria-label={undefined} data-section={label} className="text-4xl font-bold leading-tight sm:text-5xl">{children}</h2>
+      <h2 data-section={label} className="text-4xl font-bold leading-tight sm:text-5xl">{children}</h2>
     </div>
   );
 }
