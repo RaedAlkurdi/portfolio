@@ -25,6 +25,7 @@ export const projects: Project[] = [
     title: "Support Ticket Assistant",
     description: "Built an NLP assistant for support ticket classification and routing. Combines confidence calibration, RAG-based reply drafts and a LangGraph workflow with human approval before sending.",
     tags: ["NLP", "RAG", "LangGraph"],
+    github: "https://github.com/RaedAlkurdi/support-ticket-assistant",
   },
   {
     title: "Transformer from Scratch",
