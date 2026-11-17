@@ -121,7 +121,7 @@ function CaseStudy() {
       <Effects />
       <header className="container-page flex h-20 items-center justify-between">
         <Link to="/" className="font-display text-lg font-bold">RA<span className="text-primary">.</span></Link>
-        <Link to="/" hash="projects" className="link font-mono text-sm">Back to projects</Link>
+        <Link to="/" hash="projects" className="btn-outline !py-2 text-sm">← Back to projects</Link>
       </header>
 
       <main>
@@ -246,10 +246,7 @@ function CaseStudy() {
 
         <section className="container-page py-24">
           <div className="card-dark reveal p-8 sm:p-12">
-            <p className="max-w-3xl font-display text-2xl leading-snug">
-              Purchasing AI explores how AI extraction, deterministic checks and accessible source evidence can support a buyer's judgment in a consequential business workflow.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3">
               <Link to="/" hash="projects" className="btn-ink">See more projects</Link>
               <Link to="/" hash="contact" className="btn-outline">Get in touch</Link>
             </div>
