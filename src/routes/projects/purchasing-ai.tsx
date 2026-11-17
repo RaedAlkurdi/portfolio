@@ -1,11 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { createContext, useContext, useEffect, useState } from "react";
 import { Effects } from "@/components/portfolio/Effects";
-import reviewEvidence from "@/assets/purchasing-ai/review-evidence.png.asset.json";
-import reviewGrid from "@/assets/purchasing-ai/review-grid.png.asset.json";
-import replyDraft from "@/assets/purchasing-ai/reply-draft.png.asset.json";
-import homeAttention from "@/assets/purchasing-ai/home-attention.png.asset.json";
-import assistant from "@/assets/purchasing-ai/assistant.png.asset.json";
+import reviewEvidenceSrc from "@/assets/purchasing-ai/review-evidence.png";
+const reviewEvidence = { url: reviewEvidenceSrc };
+import reviewGridSrc from "@/assets/purchasing-ai/review-grid.png";
+const reviewGrid = { url: reviewGridSrc };
+import replyDraftSrc from "@/assets/purchasing-ai/reply-draft.png";
+const replyDraft = { url: replyDraftSrc };
+import homeAttentionSrc from "@/assets/purchasing-ai/home-attention.png";
+const homeAttention = { url: homeAttentionSrc };
+import assistantSrc from "@/assets/purchasing-ai/assistant.png";
+const assistant = { url: assistantSrc };
 
 export const Route = createFileRoute("/projects/purchasing-ai")({
   head: () => ({
