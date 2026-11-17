@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Effects } from "@/components/portfolio/Effects";
 import reviewEvidence from "@/assets/purchasing-ai/review-evidence.png.asset.json";
 import reviewGrid from "@/assets/purchasing-ai/review-grid.png.asset.json";
@@ -38,9 +39,9 @@ const steps = [
 
 const shots = [
   { img: reviewGrid, title: "Review grid", alt: "Review grid listing supplier confirmations with status and number of findings", text: "Each confirmation gets a row with its status and number of findings. A reviewed row means a buyer recorded a review, not that the order was accepted." },
-  { img: homeAttention, title: "What needs attention", alt: "Home screen listing reviews that need attention, such as a price difference on PO 450127", text: "The home screen lists reviews that need the buyer: here a price difference on one order and missing information on another." },
+  { img: homeAttention, title: "What needs attention", wide: true, alt: "Home screen listing reviews that need attention, such as a price difference on PO 450127", text: "The home screen lists reviews that need the buyer: here a price difference on one order and missing information on another." },
   { img: replyDraft, title: "Reply draft and inspection", alt: "Editable supplier reply draft listing price, revision, delivery date and freight questions", text: "The app drafts a reply that the buyer edits, then saves or copies. Nothing is sent from the app, and marking a review inspected does not accept the supplier's terms." },
-  { img: assistant, title: "Workspace questions", alt: "Home screen with a question box and suggested prompts about saved reviews", text: "Buyers can ask read-only questions about the workspace or a selected review, for example which confirmations lack a delivery date." },
+  { img: assistant, title: "Workspace questions", wide: true, alt: "Home screen with a question box and suggested prompts about saved reviews", text: "Buyers can ask read-only questions about the workspace or a selected review, for example which confirmations lack a delivery date." },
 ];
 
 const flow = [
@@ -73,7 +74,26 @@ const limits = [
   "A buyer still has to verify the findings.",
 ];
 
+type Shot = { src: string; alt: string };
+const OpenShot = createContext<(s: Shot) => void>(() => {});
+
+function Lightbox({ shot, onClose }: { shot: Shot; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
+  }, [onClose]);
+  return (
+    <div role="dialog" aria-modal="true" aria-label={shot.alt} onClick={onClose} className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 p-4 backdrop-blur-sm sm:p-8">
+      <button type="button" onClick={onClose} autoFocus className="btn-outline absolute right-4 top-4 !py-1.5">Close</button>
+      <img src={shot.src} alt={shot.alt} onClick={(e) => e.stopPropagation()} className="max-h-full max-w-full rounded-lg border border-border object-contain shadow-2xl" />
+    </div>
+  );
+}
+
 function Frame({ src, alt, eager }: { src: string; alt: string; eager?: boolean }) {
+  const open = useContext(OpenShot);
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-card shadow-2xl">
       <div className="flex h-8 items-center gap-1.5 border-b border-border px-3" aria-hidden>
@@ -81,7 +101,9 @@ function Frame({ src, alt, eager }: { src: string; alt: string; eager?: boolean 
         <span className="size-2.5 rounded-full bg-muted-foreground/40" />
         <span className="size-2.5 rounded-full bg-muted-foreground/40" />
       </div>
-      <img src={src} alt={alt} loading={eager ? "eager" : "lazy"} className="block h-auto w-full" />
+      <button type="button" onClick={() => open({ src, alt })} aria-label={`Enlarge: ${alt}`} className="block w-full cursor-zoom-in">
+        <img src={src} alt={alt} loading={eager ? "eager" : "lazy"} className="block h-auto w-full" />
+      </button>
     </div>
   );
 }
@@ -91,8 +113,11 @@ function H2({ children }: { children: React.ReactNode }) {
 }
 
 function CaseStudy() {
+  const [shot, setShot] = useState<Shot | null>(null);
   return (
+    <OpenShot.Provider value={setShot}>
     <div className="min-h-screen text-foreground">
+      {shot && <Lightbox shot={shot} onClose={() => setShot(null)} />}
       <Effects />
       <header className="container-page flex h-20 items-center justify-between">
         <Link to="/" className="font-display text-lg font-bold">RA<span className="text-primary">.</span></Link>
@@ -154,13 +179,13 @@ function CaseStudy() {
         <section className="container-page py-20">
           <H2>Product experience</H2>
           <p className="mt-6 max-w-3xl leading-relaxed text-muted-foreground">
-            The review workspace at the top shows discrepancies, missing information and delivery splits, with the original PDF and purchase-order snapshot one click away. The screens below cover the rest of the workflow.
+            The review workspace at the top shows discrepancies, missing information and delivery splits, with the original PDF and purchase-order snapshot one click away. The screens below cover the rest of the workflow. Click any screenshot to see it larger.
           </p>
           <div className="mt-12 space-y-20">
             {shots.map((s, i) => (
-              <figure key={s.title} className={`reveal grid items-center gap-8 lg:grid-cols-[1.6fr_1fr] ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}>
+              <figure key={s.title} className={s.wide ? "reveal space-y-6" : `reveal grid items-center gap-8 lg:grid-cols-[1.6fr_1fr] ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}>
                 <Frame src={s.img.url} alt={s.alt} />
-                <figcaption>
+                <figcaption className={s.wide ? "max-w-3xl" : ""}>
                   <h3 className="text-xl font-bold">{s.title}</h3>
                   <p className="mt-3 leading-relaxed text-muted-foreground">{s.text}</p>
                 </figcaption>
@@ -232,5 +257,6 @@ function CaseStudy() {
         </section>
       </main>
     </div>
+    </OpenShot.Provider>
   );
 }
