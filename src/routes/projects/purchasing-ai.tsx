@@ -231,7 +231,6 @@ function CaseStudy() {
           <p className="mt-6 max-w-3xl leading-relaxed text-muted-foreground">
             The repository has a working desktop flow for importing documents, running analysis, reviewing evidence, correcting facts, editing drafts and returning to saved reviews, plus synthetic test data and automated tests for parts of it. It has not been measured with customers yet, so there are no claims here about time saved, accuracy or production readiness.
           </p>
-          <p className="mt-4 max-w-3xl text-sm text-muted-foreground">The first audience is Swedish manufacturing and wholesale purchasing teams. That is still a hypothesis to validate.</p>
           <div className="mt-10 grid gap-5 md:grid-cols-2">
             <div className="card-dark reveal p-7">
               <h3 className="text-lg font-bold">Next steps</h3>
