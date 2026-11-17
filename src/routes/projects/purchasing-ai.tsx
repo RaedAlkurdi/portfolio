@@ -244,14 +244,6 @@ function CaseStudy() {
           </div>
         </section>
 
-        <section className="container-page py-24">
-          <div className="card-dark reveal p-8 sm:p-12">
-            <div className="flex flex-wrap gap-3">
-              <Link to="/" hash="projects" className="btn-ink">See more projects</Link>
-              <Link to="/" hash="contact" className="btn-outline">Get in touch</Link>
-            </div>
-          </div>
-        </section>
       </main>
     </div>
     </OpenShot.Provider>
