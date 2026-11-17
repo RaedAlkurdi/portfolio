@@ -18,9 +18,15 @@ export const skills = [
   { group: "Focus areas", items: ["Deep Learning", "NLP", "Transformers", "RAG", "Regression", "Classification", "Probability Calibration"] },
 ];
 
-export type Project = { title: string; description: string; tags: string[]; github?: string; demo?: string };
+export type Project = { title: string; description: string; tags: string[]; github?: string; demo?: string; caseStudy?: string };
 
 export const projects: Project[] = [
+  {
+    title: "Purchasing AI",
+    description: "Building a Windows desktop prototype that compares supplier order confirmations with purchase orders. AI extracts facts from the PDF, Python checks them against the order, and the buyer verifies the evidence before replying.",
+    tags: ["LLM", "LangGraph", "Product"],
+    caseStudy: "/projects/purchasing-ai",
+  },
   {
     title: "Support Ticket Assistant",
     description: "Built an NLP assistant for support ticket classification and routing. Combines confidence calibration, RAG-based reply drafts and a LangGraph workflow with human approval before sending.",

@@ -10,33 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProjectsPurchasingAiRouteImport } from './routes/projects/purchasing-ai'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsPurchasingAiRoute = ProjectsPurchasingAiRouteImport.update({
+  id: '/projects/purchasing-ai',
+  path: '/projects/purchasing-ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/projects/purchasing-ai': typeof ProjectsPurchasingAiRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/projects/purchasing-ai': typeof ProjectsPurchasingAiRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/projects/purchasing-ai': typeof ProjectsPurchasingAiRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/projects/purchasing-ai'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/projects/purchasing-ai'
+  id: '__root__' | '/' | '/projects/purchasing-ai'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ProjectsPurchasingAiRoute: typeof ProjectsPurchasingAiRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/purchasing-ai': {
+      id: '/projects/purchasing-ai'
+      path: '/projects/purchasing-ai'
+      fullPath: '/projects/purchasing-ai'
+      preLoaderRoute: typeof ProjectsPurchasingAiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ProjectsPurchasingAiRoute: ProjectsPurchasingAiRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

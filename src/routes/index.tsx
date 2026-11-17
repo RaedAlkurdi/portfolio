@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Effects } from "@/components/portfolio/Effects";
 import { HeroPhoto } from "@/components/portfolio/HeroPhoto";
@@ -152,6 +152,7 @@ function Index() {
                   {p.tags.map((t) => <span key={t} className="tag">{t}</span>)}
                 </div>
                 <div className="mt-5 flex gap-5 font-mono text-xs">
+                  {p.caseStudy && <Link to="/projects/purchasing-ai" className="link">Read case study</Link>}
                   {p.github && <a href={p.github} className="link">View on GitHub</a>}
                   {p.demo && <a href={p.demo} className="link">Try the demo</a>}
                 </div>
