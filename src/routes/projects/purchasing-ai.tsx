@@ -39,9 +39,9 @@ const steps = [
 
 const shots = [
   { img: reviewGrid, title: "Review grid", alt: "Review grid listing supplier confirmations with status and number of findings", text: "Each confirmation gets a row with its status and number of findings. A reviewed row means a buyer recorded a review, not that the order was accepted." },
-  { img: homeAttention, title: "What needs attention", wide: true, alt: "Home screen listing reviews that need attention, such as a price difference on PO 450127", text: "The home screen lists reviews that need the buyer: here a price difference on one order and missing information on another." },
+  { img: homeAttention, title: "What needs attention", alt: "Home screen listing reviews that need attention, such as a price difference on PO 450127", text: "The home screen lists reviews that need the buyer: here a price difference on one order and missing information on another." },
   { img: replyDraft, title: "Reply draft and inspection", alt: "Editable supplier reply draft listing price, revision, delivery date and freight questions", text: "The app drafts a reply that the buyer edits, then saves or copies. Nothing is sent from the app, and marking a review inspected does not accept the supplier's terms." },
-  { img: assistant, title: "Workspace questions", wide: true, alt: "Home screen with a question box and suggested prompts about saved reviews", text: "Buyers can ask read-only questions about the workspace or a selected review, for example which confirmations lack a delivery date." },
+  { img: assistant, title: "Workspace questions", alt: "Home screen with a question box and suggested prompts about saved reviews", text: "Buyers can ask read-only questions about the workspace or a selected review, for example which confirmations lack a delivery date." },
 ];
 
 const flow = [
@@ -183,9 +183,9 @@ function CaseStudy() {
           </p>
           <div className="mt-12 space-y-20">
             {shots.map((s, i) => (
-              <figure key={s.title} className={s.wide ? "reveal space-y-6" : `reveal grid items-center gap-8 lg:grid-cols-[1.6fr_1fr] ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}>
+              <figure key={s.title} className={`reveal grid items-center gap-8 lg:grid-cols-[1.6fr_1fr] ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}>
                 <Frame src={s.img.url} alt={s.alt} />
-                <figcaption className={s.wide ? "max-w-3xl" : ""}>
+                <figcaption>
                   <h3 className="text-xl font-bold">{s.title}</h3>
                   <p className="mt-3 leading-relaxed text-muted-foreground">{s.text}</p>
                 </figcaption>
