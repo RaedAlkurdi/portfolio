@@ -1,205 +1,125 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowDown, ArrowRight, ArrowUpRight, MapPin } from "lucide-react";
 import { useState } from "react";
-import { Effects } from "@/components/portfolio/Effects";
 import { HeroPhoto } from "@/components/portfolio/HeroPhoto";
 import { RotatingHeadline } from "@/components/portfolio/RotatingHeadline";
 import { ContactForm } from "@/components/portfolio/ContactForm";
 import { profile, skills, projects, experience } from "@/content/portfolio";
+import reviewImage from "@/assets/purchasing-ai/review-grid.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Raed Alkurdi | Portfolio" },
-      { name: "description", content: "I'm Raed Alkurdi, a Complex Adaptive Systems master's student at Chalmers. See my machine learning projects, skills and education." },
-      { property: "og:title", content: "Raed Alkurdi | Portfolio" },
-      { property: "og:description", content: "Machine learning projects, skills and studies — including a Transformer built from scratch, customer churn prediction and a support ticket assistant." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "Machine learning projects, skills and studies by Raed Alkurdi, a Complex Adaptive Systems master's student at Chalmers." },
     ],
   }),
   component: Index,
 });
 
-const nav = [
-  ["about", "About"],
-  ["skills", "Skills"],
-  ["projects", "Projects"],
-  ["experience", "Education"],
-  ["contact", "Contact"],
-] as const;
-
-const principles = [
-  ["Always learning", "I learn best by building, so I start with the part I don't understand yet."],
-  ["Working with data", "I handle the whole pipeline, from raw data and feature engineering to training, evaluation and reporting results."],
-  ["Studying the theory", "My MSc in Complex Adaptive Systems leaves room to study the maths behind the models."],
-];
-
-
-function Heading({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div className="reveal">
-      <h2 data-section={label} className="text-4xl font-bold leading-tight sm:text-5xl">{children}</h2>
-    </div>
-  );
-}
+const navigation = [["projects", "Work"], ["about", "About"], ["contact", "Contact"]] as const;
+const featured = projects[0];
+const otherProjects = projects.slice(1);
+const tags = ["All", ...new Set(otherProjects.flatMap((project) => project.tags))];
 
 function Index() {
-  const tags = ["All", ...Array.from(new Set(projects.flatMap((p) => p.tags)))];
   const [filter, setFilter] = useState("All");
-  const shown = filter === "All" ? projects : projects.filter((p) => p.tags.includes(filter));
-  const tools = skills.flatMap((s) => s.items);
+  const shown = otherProjects.filter((project) => filter === "All" || project.tags.includes(filter));
 
   return (
-    <div className="min-h-screen text-foreground">
-      <Effects />
-      <header id="site-header" className="fixed inset-x-0 top-4 z-20 px-4 transition-transform duration-500">
-        <div className="glass-gold mx-auto flex h-14 max-w-5xl items-center justify-between rounded-full pl-6 pr-2">
-          <a href="#top" className="font-display text-lg font-bold">RA<span className="text-primary">.</span></a>
-          <nav className="hidden gap-1 md:flex">
-            {nav.map(([id, l]) => (
-              <a key={id} href={`#${id}`} className="rounded-full px-4 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-primary">{l}</a>
-            ))}
-          </nav>
-          <a href="#contact" className="btn-ink btn-glow !py-2">Get in touch</a>
-        </div>
+    <div className="portfolio">
+      <a className="skip-link" href="#main">Skip to content</a>
+      <header className="container-page portfolio-header" id="top">
+        <a className="wordmark" href="#top" aria-label="Raed Alkurdi, back to top">RA<span>.</span></a>
+        <nav aria-label="Main navigation">
+          {navigation.map(([id, label]) => <a key={id} href={`#${id}`}>{label}</a>)}
+        </nav>
       </header>
 
-      <main id="top">
-        {/* Hero */}
-        <section className="container-page grid min-h-screen items-center gap-12 pt-28 pb-16 lg:grid-cols-[1.2fr_1fr]">
-          <div className="fade-in">
-            <span className="glass inline-flex items-center rounded-full px-3 py-1.5 text-sm text-muted-foreground">
-              Based in Gothenburg, Sweden
-            </span>
-            <h1 className="mt-6 text-6xl font-bold leading-[0.95] sm:text-7xl">Raed<br />Alkurdi</h1>
+      <main id="main">
+        <section className="container-page hero" aria-labelledby="name">
+          <div className="hero-copy">
+            <h1 id="name">Raed<br />Alkurdi<span>.</span></h1>
             <RotatingHeadline />
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              {profile.title}. {profile.intro}
-            </p>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <a href="#projects" className="btn-ink">See my projects</a>
-              <a href="#contact" className="btn-outline">Get in touch</a>
-            </div>
+            <p className="hero-description">MSc student in Complex Adaptive Systems at Chalmers. I build and evaluate machine learning systems.</p>
+            <a className="btn-ink" href="#projects">Explore my work <ArrowDown size={17} aria-hidden /></a>
           </div>
-
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-sm">
-            <div data-tilt className="card-dark flex h-full items-end justify-center overflow-hidden">
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 bg-[radial-gradient(circle_at_50%_70%,var(--glow),transparent_70%)]" />
-              <HeroPhoto />
-            </div>
-            {[["Agentic AI", "-left-6 top-10"], ["Deep Learning", "-right-6 top-1/3"], ["ML", "-left-8 bottom-1/4"], ["Data Science", "-right-4 bottom-8"]].map(([t, pos], i) => (
-              <span key={t} className={`glass float absolute ${pos} rounded-full px-3 py-1.5 font-mono text-xs text-primary`} style={{ animationDelay: `${i * 0.6}s` }}>{t}</span>
-            ))}
-          </div>
+          <figure className="hero-figure">
+            <div className="portrait"><HeroPhoto /></div>
+            <figcaption><MapPin size={15} aria-hidden /> Gothenburg, Sweden</figcaption>
+          </figure>
         </section>
 
-        {/* About */}
-        <section id="about" className="container-page py-24">
-          <Heading label="About">A bit about me</Heading>
-          <p className="reveal mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground">{profile.bio}</p>
-          <p className="reveal mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground">{profile.personal}</p>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {principles.map(([t, d], i) => (
-              <div key={t} className="card-dark reveal p-7" style={{ "--d": `${i * 0.1}s` } as React.CSSProperties}>
-                <p className="font-mono text-xs text-primary">0{i + 1}</p>
-                <h3 className="mt-4 text-lg font-bold">{t}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{d}</p>
-              </div>
+        <section id="projects" className="container-page portfolio-section">
+          <h2>Selected work</h2>
+          <Link to="/projects/purchasing-ai" className="featured-project">
+            <div className="feature-copy">
+              <h3>{featured.title}</h3>
+              <p>{featured.description}</p>
+              <span className="project-action">Read the case study <ArrowUpRight size={17} aria-hidden /></span>
+            </div>
+            <div className="feature-media">
+              <img src={reviewImage} alt="Purchasing AI review grid with supplier confirmation findings" loading="lazy" />
+            </div>
+          </Link>
+
+          <h3 className="project-list-title">More projects</h3>
+          <div className="project-filters" role="group" aria-label="Filter projects by topic">
+            {tags.map((tag) => (
+              <button key={tag} type="button" className="chip" aria-pressed={filter === tag} onClick={() => setFilter(tag)}>{tag}</button>
             ))}
           </div>
-        </section>
-
-        {/* Skills */}
-        <section id="skills" className="py-24">
-          <div className="container-page">
-            <Heading label="Skills">What I work with</Heading>
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {skills.map((s, i) => (
-                <div key={s.group} className="card-dark reveal p-6" style={{ "--d": `${i * 0.1}s` } as React.CSSProperties}>
-                  <h3 className="font-bold">{s.group}</h3>
-                  <p className="mt-1 font-mono text-xs text-muted-foreground">{s.items.length} {s.group === "Focus areas" ? "topics" : s.group === "Languages" ? "languages" : "tools"}</p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {s.items.map((i) => <span key={i} className="tag">{i}</span>)}
-                  </div>
+          <p className="sr-only" role="status">{shown.length} {shown.length === 1 ? "project" : "projects"} shown</p>
+          <div>
+            {shown.map((project) => (
+              <article key={project.title} className="project-row">
+                <h4>{project.title}</h4>
+                <div>
+                  <p>{project.description}</p>
+                  <ul className="project-tags" aria-label="Topics">
+                    {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
+                  </ul>
                 </div>
-              ))}
-            </div>
-          </div>
-          <div className="mt-14 overflow-hidden border-y border-border py-5">
-            <div className="marquee flex w-max gap-8 font-display text-2xl font-bold text-muted-foreground">
-              {[...tools, ...tools].map((t, i) => (
-                <span key={i} className="flex items-center gap-8">{t}<span className="text-primary">✦</span></span>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Projects */}
-        <section id="projects" className="container-page py-24">
-          <Heading label="Projects">What I've been building</Heading>
-          <div className="mt-8 flex flex-wrap gap-2">
-            {tags.map((t) => (
-              <button key={t} onClick={() => setFilter(t)} className={filter === t ? "chip chip-active" : "chip"}>{t}</button>
-            ))}
-          </div>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {shown.map((p, i) => (
-              <article key={p.title} data-tilt className="card-dark reveal group flex flex-col p-7" style={{ "--d": `${(i % 3) * 0.1}s` } as React.CSSProperties}>
-                <p className="font-mono text-xs text-primary">{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="mt-4 text-xl font-bold">{p.title}</h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{p.description}</p>
-                <div className="mt-5 flex flex-wrap gap-1.5">
-                  {p.tags.map((t) => <span key={t} className="tag">{t}</span>)}
-                </div>
-                <div className="mt-5 flex gap-5 font-mono text-xs">
-                  {p.caseStudy && <Link to="/projects/purchasing-ai" className="link">Read case study</Link>}
-                  {p.github && <a href={p.github} className="link">View on GitHub</a>}
-                  {p.demo && <a href={p.demo} className="link">Try the demo</a>}
-                </div>
+                {project.github && <a className="project-action" href={project.github} aria-label={`View ${project.title} on GitHub`}>GitHub <ArrowUpRight size={15} aria-hidden /></a>}
               </article>
             ))}
           </div>
         </section>
 
-        {/* Experience */}
-        <section id="experience" className="container-page py-24">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <Heading label="Education">Academic background</Heading>
+        <section id="about" className="container-page portfolio-section">
+          <div className="editorial-grid">
+            <h2>About me</h2>
+            <div className="body-copy"><p>{profile.bio}</p><p>{profile.personal}</p></div>
           </div>
-          <ol className="mt-12 space-y-5">
-            {experience.map((e) => (
-              <li key={e.role} className="card-dark reveal grid gap-2 p-7 md:grid-cols-[10rem_1fr]">
-                <p className="font-mono text-xs text-primary">{e.period}</p>
-                <div>
-                  <h3 className="text-lg font-bold">{e.role}</h3>
-                  <p className="text-sm text-muted-foreground">{e.org}</p>
-                  {e.text && <p className="mt-2 text-sm text-muted-foreground">{e.text}</p>}
-                </div>
-              </li>
-            ))}
-          </ol>
+          <div id="skills" className="editorial-grid detail-section">
+            <h3>Tools and interests</h3>
+            <dl className="detail-list">
+              {skills.map((item) => <div key={item.group}><dt>{item.group}</dt><dd>{item.items.join(" · ")}</dd></div>)}
+            </dl>
+          </div>
+          <div id="experience" className="editorial-grid detail-section">
+            <h3>Education</h3>
+            <ul className="education-list">
+              {experience.map((item) => <li key={item.role}><h4>{item.role}</h4><p>{item.org}</p><p>{item.period}</p>{item.text && <p>{item.text}</p>}</li>)}
+            </ul>
+          </div>
         </section>
 
-        {/* Contact */}
-        <section id="contact" className="container-page py-24">
-          <div className="card-dark reveal grid gap-12 p-8 sm:p-12 lg:grid-cols-2">
+        <section id="contact" className="container-page portfolio-section">
+          <div className="editorial-grid contact-layout">
             <div>
-              <Heading label="Contact">Let's build something intelligent</Heading>
-              <a href={`mailto:${profile.email}`} className="mt-8 inline-block font-mono text-primary">{profile.email}</a>
-              <div className="mt-4 flex gap-5 font-mono text-sm">
-                {profile.links.map((l) => <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="link">{l.label}</a>)}
-              </div>
+              <h2>Get in touch</h2>
+              <a className="contact-email project-action" href={`mailto:${profile.email}`}>{profile.email} <ArrowRight size={16} aria-hidden /></a>
+              {profile.links.map((link) => <a className="project-action" key={link.label} href={link.href}>{link.label} <ArrowUpRight size={16} aria-hidden /></a>)}
             </div>
             <ContactForm />
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-border">
-        <div className="container-page flex h-16 items-center justify-between font-mono text-xs text-muted-foreground">
-          <span>© {new Date().getFullYear()} {profile.name}</span>
-          <span>Gothenburg, Sweden</span>
-        </div>
+      <footer className="container-page portfolio-footer">
+        <span>© {new Date().getFullYear()} {profile.name}</span>
+        <a href="#top">Back to top</a>
       </footer>
     </div>
   );

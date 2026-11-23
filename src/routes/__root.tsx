@@ -14,6 +14,9 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { GA_MEASUREMENT_ID } from "../lib/ga-id";
 
+const socialImage = "https://raedalkurdi.github.io/portfolio/social-preview.png";
+const socialImageAlt = "Raed Alkurdi, machine learning and applied AI, with a portrait on a blue background.";
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -85,6 +88,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "Raed Alkurdi | Portfolio" },
       { property: "og:description", content: "My machine learning projects and studies at Chalmers University of Technology." },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: socialImage },
+      { property: "og:image:type", content: "image/png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: socialImageAlt },
+      { name: "twitter:image", content: socialImage },
+      { name: "twitter:image:alt", content: socialImageAlt },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [

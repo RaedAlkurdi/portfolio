@@ -7,19 +7,18 @@ export function RotatingHeadline() {
 
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let timer: ReturnType<typeof setInterval> | undefined;
+    let timers: ReturnType<typeof setTimeout>[] = [];
     const sync = () => {
-      clearInterval(timer);
+      timers.forEach(clearTimeout);
+      setActive(0);
       if (!motion.matches) {
-        timer = setInterval(() => setActive((current) => (current + 1) % phrases.length), 3200);
-      } else {
-        setActive(0);
+        timers = phrases.map((_, index) => setTimeout(() => setActive((index + 1) % phrases.length), (index + 1) * 1150));
       }
     };
     sync();
     motion.addEventListener("change", sync);
     return () => {
-      clearInterval(timer);
+      timers.forEach(clearTimeout);
       motion.removeEventListener("change", sync);
     };
   }, []);
@@ -30,8 +29,8 @@ export function RotatingHeadline() {
       <span aria-hidden="true">I build </span>
       <span className="headline-phrases" aria-hidden="true">
         {phrases.map((phrase, index) => (
-          <span key={phrase} className={`headline-phrase text-gradient font-bold ${active === index ? "headline-phrase-active" : ""}`}>
-            {phrase}<span className="cursor">_</span>
+          <span key={phrase} className={`headline-phrase font-bold ${active === index ? "headline-phrase-active" : ""}`}>
+            {phrase}
           </span>
         ))}
       </span>
