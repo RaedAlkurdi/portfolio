@@ -7,3 +7,4 @@
 - [x] Verify validation, confirmation, error recovery, and retry behavior.
 - [ ] Confirm inbox delivery: the live Web3Forms request timed out in this environment; owner needs to send a message from the published page and check the inbox.
 - [x] Add Google Analytics tracking tag to every page.
+- [x] Write a paste-ready Codex handover brief for the portfolio site.
