@@ -45,7 +45,7 @@ const steps = [
 
 const shots = [
   { img: reviewGrid, title: "Review grid", alt: "Review grid listing supplier confirmations with status and number of findings", text: "Each confirmation gets a row with its status and number of findings. A reviewed row means a buyer recorded a review, not that the order was accepted." },
-  { img: homeAttention, title: "What needs attention", alt: "Home screen listing reviews that need attention, such as a price difference on PO 450127", text: "The home screen lists reviews that need the buyer: here a price difference on one order and missing information on another." },
+  { img: homeAttention, title: "What needs attention", alt: "Home screen summarizing two confirmations for PO 450127 and flagging a unit price difference", text: "The home screen summarizes two confirmations for the same purchase order and flags a unit price difference for the buyer to verify." },
   { img: replyDraft, title: "Reply draft and inspection", alt: "Editable supplier reply draft listing price, revision, delivery date and freight questions", text: "The app drafts a reply that the buyer edits, then saves or copies. Nothing is sent from the app, and marking a review inspected does not accept the supplier's terms." },
   { img: assistant, title: "Workspace questions", alt: "Home screen with a question box and suggested prompts about saved reviews", text: "Buyers can ask read-only questions about the workspace or a selected review, for example which confirmations lack a delivery date." },
 ];
@@ -169,7 +169,7 @@ function CaseStudy() {
             </li>
           </ol>
           <figure className="mt-8">
-            <Frame src={reviewEvidence.url} alt="Synthetic review for PO 450127. Line 10 is flagged at 2.40 versus 2.55 SEK per piece, and the Evidence workspace offers Check the source." eager />
+            <Frame src={reviewEvidence.url} alt="Analysis for synthetic PO 450127 showing the unit price difference on line 10 and the Check the source button." eager />
             <figcaption className="mt-3 text-sm text-muted-foreground">
               Synthetic example shown in the prototype. Select the screenshot to enlarge it.
             </figcaption>
